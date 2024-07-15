@@ -1,22 +1,6 @@
-import React, { useEffect, useState } from "react";
 import { Piechart } from "./charts/Piechart";
-import axios from "axios";
 import { Barchart } from "./charts/Barchart";
 import { Gradient } from "./charts/Gradient";
-
-interface Response {
-  age: number;
-  colour: string;
-  id: string;
-  language: string;
-  name: string;
-}
-
-interface Counts {
-  age: { [key: number]: number };
-  language: { [key: string]: number };
-  colour: { [key: string]: number };
-}
 
 const Responses: React.FC = () => {
   return (

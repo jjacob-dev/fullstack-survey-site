@@ -1,20 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { TrendingUp } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import axios from "axios";
-import { Label, Pie, PieChart, Sector } from "recharts";
+import { Pie, PieChart, Sector } from "recharts";
 import { PieSectorDataItem } from "recharts/types/polar/Pie";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
+import { CardFooter, CardHeader, CardTitle } from "../ui/card";
 import {
   ChartConfig,
   ChartContainer,

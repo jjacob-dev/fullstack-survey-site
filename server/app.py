@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
+from faker import Faker
+import random
 
 app = Flask(__name__)
 cors = CORS(app, origins='*')
@@ -11,8 +13,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://user:password123@localh
 
 # Initialize SQLAlchemy
 db = SQLAlchemy(app)
+fake = Faker()
 
-# Model for survey responses
+
 class SurveyResponse(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
@@ -20,7 +23,7 @@ class SurveyResponse(db.Model):
     language = db.Column(db.String(100), nullable=False)
     colour = db.Column(db.String(100), nullable=False)
     feedback = db.Column(db.Text, nullable=False)
-    # Add more fields as needed
+
 
 def get_column_counts(column):
     results = db.session.query(column, func.count(column)).group_by(column).all()
@@ -30,8 +33,6 @@ def get_column_counts(column):
 @app.route('/submit-survey', methods=['POST'])
 def submit_survey():
     response = request.json
-
-    # Example of creating and saving a SurveyResponse object
     new_response = SurveyResponse(name=response.get('name'), age=response.get('age'), language=response.get('language'), colour=response.get('colour'), feedback=response.get('feedback'))
     db.session.add(new_response)
     db.session.commit()
@@ -49,7 +50,6 @@ def get_responses():
             'age': response.age,
             'language': response.language,
             'colour': response.colour
-            # Add more fields as needed
         })
     return jsonify(response_list), 200
 
@@ -76,8 +76,6 @@ def get_last_entry(column_name):
             return jsonify({"message": "No entries found"}), 404
     except AttributeError:
         return jsonify({"error": f"Column '{column_name}' does not exist in SurveyResponse table"}), 400
-    
-
 
 if __name__ == '__main__':
     app.run(debug=True)

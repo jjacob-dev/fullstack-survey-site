@@ -1,10 +1,5 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import Survey from "./components/Survey";
-import Responses from "./components/Responses";
-import axios from "axios";
 
 function App() {
   return (

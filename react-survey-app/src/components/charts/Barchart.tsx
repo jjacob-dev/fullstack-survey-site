@@ -2,17 +2,9 @@
 
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { TrendingUp } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, Rectangle, XAxis } from "recharts";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
+import { CardFooter, CardHeader, CardTitle } from "../ui/card";
 import {
   ChartConfig,
   ChartContainer,

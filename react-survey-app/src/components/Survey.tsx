@@ -1,13 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Responses from "./Responses";
 
 const Survey: React.FC = () => {
   const [step, setStep] = useState(1);
-
-  const nextStep = () => {
-    setStep((prevStep) => prevStep + 1);
-  };
 
   const [formData, setFormData] = useState({
     name: "",
@@ -17,6 +13,8 @@ const Survey: React.FC = () => {
     feedback: "",
   });
 
+  const [isFormValid, setIsFormValid] = useState(false);
+
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -24,6 +22,27 @@ const Survey: React.FC = () => {
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const validateForm = () => {
+    const { name, age, language, colour } = formData;
+    if (name && age && language && colour) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
+  };
+
+  const nextStep = () => {
+    if (!isFormValid) {
+      alert("Please fill out the form");
+    } else {
+      setStep((prevStep) => prevStep + 1);
+    }
+  };
+
+  useEffect(() => {
+    validateForm();
+  }, [formData]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -148,7 +167,7 @@ const Survey: React.FC = () => {
                 <span>Pink</span>
               </div>
             </div>
-            <button id="next" onClick={nextStep}>
+            <button type="button" id="next" onClick={nextStep}>
               Next
             </button>
           </div>
