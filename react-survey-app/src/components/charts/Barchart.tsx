@@ -37,14 +37,20 @@ const chartConfig = {
 
 export function Barchart() {
   const [chartData, setChartData] = useState<any[]>([]);
+  const [recentData, setRecent] = useState([]);
 
   useEffect(() => {
     const fetchChartData = async () => {
       try {
         // Fetch counts data from your API
         const result = await axios.get(
-          "http://localhost:5000/counts?columns=colour"
+          "https://flask-backsurvey-37288cfae4ae.herokuapp.com/counts?columns=colour"
         );
+        const recent = await axios.get(
+          "https://flask-backsurvey-37288cfae4ae.herokuapp.com/last-entry/colour"
+        );
+
+        setRecent(recent.data.colour);
 
         const counts = result.data;
 
@@ -123,7 +129,7 @@ export function Barchart() {
           />
         </BarChart>
       </ChartContainer>
-      <CardFooter>Your favourite color is</CardFooter>
+      <CardFooter>Your favourite color is {recentData}</CardFooter>
     </div>
   );
 }

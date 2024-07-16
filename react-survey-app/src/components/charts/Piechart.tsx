@@ -24,7 +24,7 @@ const chartConfig = {
     color: "hsl(var(--chart-2))",
   },
   javascript: {
-    label: "Javascript",
+    label: "JavaScript",
     color: "hsl(var(--chart-3))",
   },
   c: {
@@ -42,10 +42,10 @@ export function Piechart() {
       try {
         // Fetch counts data from your API
         const result = await axios.get(
-          "http://localhost:5000/counts?columns=language"
+          "https://flask-backsurvey-37288cfae4ae.herokuapp.com/counts?columns=language"
         );
         const recent = await axios.get(
-          "http://localhost:5000/last-entry/language"
+          "https://flask-backsurvey-37288cfae4ae.herokuapp.com/last-entry/language"
         );
 
         setRecent(recent.data.language);
@@ -80,7 +80,7 @@ export function Piechart() {
         return 0;
       case "HTML/CSS":
         return 1;
-      case "Javascript":
+      case "JavaScript":
         return 2;
       case "Python":
         return 3;
@@ -93,7 +93,7 @@ export function Piechart() {
         return "var(--color-python)";
       case "HTML/CSS":
         return "var(--color-html)";
-      case "Javascript":
+      case "JavaScript":
         return "var(--color-javascript)";
       case "C++":
         return "var(--color-c)";

@@ -7,7 +7,7 @@ const Survey: React.FC = () => {
 
   const [formData, setFormData] = useState({
     name: "",
-    age: "",
+    age: 0,
     language: "Python",
     colour: "",
     feedback: "",
@@ -47,14 +47,15 @@ const Survey: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      formData.age = Number(formData.age);
       const response = await axios.post(
-        "http://localhost:5000/submit-survey",
+        "https://flask-backsurvey-37288cfae4ae.herokuapp.com/submit-survey",
         formData
       );
       alert(response.data.message);
       nextStep();
     } catch (error) {
-      console.error("There was an error submitting the survey!", error);
+      console.error(error); // NOTE - use "error.response.data` (not "error")
     }
   };
 

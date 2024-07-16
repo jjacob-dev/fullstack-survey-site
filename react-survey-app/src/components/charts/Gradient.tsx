@@ -21,6 +21,7 @@ const chartConfig = {
 
 export function Gradient() {
   const [chartData, setChartData] = useState<any[]>([]);
+  const [averageAge, setAverage] = useState(Number);
 
   const ages = [
     { age: "10+", amount: 0 },
@@ -36,10 +37,21 @@ export function Gradient() {
       try {
         // Fetch counts data from your API
         const result = await axios.get(
-          "http://localhost:5000/counts?columns=age"
+          "https://flask-backsurvey-37288cfae4ae.herokuapp.com/counts?columns=age"
         );
 
         const counts = result.data;
+
+        let totalSum = 0;
+        let totalCount = 0;
+
+        for (const [age, count] of Object.entries(result.data.age)) {
+          totalSum += Number(age) * Number(count);
+          totalCount += Number(count);
+        }
+
+        const averageAge = totalSum / totalCount;
+        setAverage(averageAge);
 
         const determineAgeRange = (age: number, amount: number): void => {
           if (age >= 10 && age <= 19) {
@@ -125,7 +137,9 @@ export function Gradient() {
           />
         </AreaChart>
       </ChartContainer>
-      <CardFooter>Gang</CardFooter>
+      <CardFooter>
+        The average age of the survey users is {averageAge}
+      </CardFooter>
     </div>
   );
 }
