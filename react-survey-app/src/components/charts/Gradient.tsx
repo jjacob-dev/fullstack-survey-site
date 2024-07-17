@@ -37,7 +37,7 @@ export function Gradient() {
       try {
         // Fetch counts data from your API
         const result = await axios.get(
-          "http://flask-test.us-east-1.elasticbeanstalk.com/counts?columns=age"
+          "https://d343wjktlr3212.cloudfront.net/counts?columns=age"
         );
 
         const counts = result.data;

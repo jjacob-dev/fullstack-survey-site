@@ -49,7 +49,7 @@ const Survey: React.FC = () => {
     try {
       parseInt(formData.age);
       const response = await axios.post(
-        "http://flask-test.us-east-1.elasticbeanstalk.com/submit-survey",
+        "https://d343wjktlr3212.cloudfront.net/submit-survey",
         formData
       );
       alert(response.data.message);

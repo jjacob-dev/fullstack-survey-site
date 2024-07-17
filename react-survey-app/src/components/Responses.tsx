@@ -11,7 +11,7 @@ const Responses: React.FC = () => {
     const fetchData = async () => {
       try {
         const recent = await axios.get(
-          "http://flask-test.us-east-1.elasticbeanstalk.com/last-entry/name"
+          "https://d343wjktlr3212.cloudfront.net/last-entry/name"
         );
 
         setRecent(recent.data.name);

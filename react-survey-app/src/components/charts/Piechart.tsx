@@ -42,10 +42,10 @@ export function Piechart() {
       try {
         // Fetch counts data from your API
         const result = await axios.get(
-          "http://flask-test.us-east-1.elasticbeanstalk.com/counts?columns=language"
+          "https://d343wjktlr3212.cloudfront.net/counts?columns=language"
         );
         const recent = await axios.get(
-          "http://flask-test.us-east-1.elasticbeanstalk.com/last-entry/language"
+          "https://d343wjktlr3212.cloudfront.net/last-entry/language"
         );
 
         setRecent(recent.data.language);

@@ -44,10 +44,10 @@ export function Barchart() {
       try {
         // Fetch counts data from your API
         const result = await axios.get(
-          "http://flask-test.us-east-1.elasticbeanstalk.com/counts?columns=colour"
+          "https://d343wjktlr3212.cloudfront.net/counts?columns=colour"
         );
         const recent = await axios.get(
-          "http://flask-test.us-east-1.elasticbeanstalk.com/last-entry/colour"
+          "https://d343wjktlr3212.cloudfront.net/last-entry/colour"
         );
 
         setRecent(recent.data.colour);
