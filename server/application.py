@@ -5,15 +5,15 @@ from sqlalchemy import func
 import pymysql
 from flask_cors import CORS
 
-app = Flask(__name__)
-CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://u9i91190bv5qpo:p658dbb1b0fcdcd3c6374822f4eb7f6f540191729f8e12495db5c02451d73ad9d@c9uss87s9bdb8n.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/df0f1bsh81n0gh'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Avoids SQLAlchemy warning
+application = Flask(__name__)
+CORS(application)
+application.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:Aqkn24412@surveydb.cpsokwaqw7fg.us-east-1.rds.amazonaws.com:3306/surveydb'
+application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Avoids SQLAlchemy warning
 
 
 
 # Initialize SQLAlchemy
-db = SQLAlchemy(app)
+db = SQLAlchemy(application)
 
 
 class SurveyResponse(db.Model):
@@ -29,11 +29,11 @@ def get_column_counts(column):
     return {value: count for value, count in results}
 
 
-@app.route('/')
+@application.route('/')
 def index():
     return 'Working!'
 
-@app.route('/submit-survey', methods=['POST'])
+@application.route('/submit-survey', methods=['POST'])
 def submit_survey():
     print("anything!!")
     response = request.json
@@ -44,7 +44,7 @@ def submit_survey():
 
     return jsonify({"message": "Survey submitted successfully"}), 200
 
-@app.route('/get-responses', methods=['GET'])
+@application.route('/get-responses', methods=['GET'])
 def get_responses():
     responses = SurveyResponse.query.all()
     response_list = []
@@ -58,7 +58,7 @@ def get_responses():
         })
     return jsonify(response_list), 200
 
-@app.route('/counts', methods=['GET'])
+@application.route('/counts', methods=['GET'])
 def get_counts():
     columns = request.args.getlist('columns')
     counts = {}
@@ -71,7 +71,7 @@ def get_counts():
     return jsonify(counts)
 
 
-@app.route('/last-entry/<column_name>', methods=['GET'])
+@application.route('/last-entry/<column_name>', methods=['GET'])
 def get_last_entry(column_name):
     try:
         last_entry = db.session.query(getattr(SurveyResponse, column_name)).order_by(SurveyResponse.id.desc()).first()
@@ -81,3 +81,7 @@ def get_last_entry(column_name):
             return jsonify({"message": "No entries found"}), 404
     except AttributeError:
         return jsonify({"error": f"Column '{column_name}' does not exist in SurveyResponse table"}), 400
+    
+
+if __name__ == "__main__":
+    application.run()

@@ -37,7 +37,7 @@ export function Gradient() {
       try {
         // Fetch counts data from your API
         const result = await axios.get(
-          "https://flask-backsurvey-37288cfae4ae.herokuapp.com/counts?columns=age"
+          "flask-test.us-east-1.elasticbeanstalk.com/counts?columns=age"
         );
 
         const counts = result.data;
@@ -50,7 +50,7 @@ export function Gradient() {
           totalCount += Number(count);
         }
 
-        const averageAge = totalSum / totalCount;
+        const averageAge = Math.round(totalSum / totalCount);
         setAverage(averageAge);
 
         const determineAgeRange = (age: number, amount: number): void => {
@@ -137,9 +137,7 @@ export function Gradient() {
           />
         </AreaChart>
       </ChartContainer>
-      <CardFooter>
-        The average age of the survey users is {averageAge}
-      </CardFooter>
+      <CardFooter>Average age of survey user is {averageAge}</CardFooter>
     </div>
   );
 }

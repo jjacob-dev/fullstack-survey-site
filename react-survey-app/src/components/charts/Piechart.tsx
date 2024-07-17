@@ -42,10 +42,10 @@ export function Piechart() {
       try {
         // Fetch counts data from your API
         const result = await axios.get(
-          "https://flask-backsurvey-37288cfae4ae.herokuapp.com/counts?columns=language"
+          "flask-test.us-east-1.elasticbeanstalk.com/counts?columns=language"
         );
         const recent = await axios.get(
-          "https://flask-backsurvey-37288cfae4ae.herokuapp.com/last-entry/language"
+          "flask-test.us-east-1.elasticbeanstalk.com/last-entry/language"
         );
 
         setRecent(recent.data.language);
@@ -127,7 +127,7 @@ export function Piechart() {
           />
         </PieChart>
       </ChartContainer>
-      <CardFooter>Your preffered language is {recentData}</CardFooter>
+      <CardFooter>Your prefered language is {recentData}</CardFooter>
     </div>
   );
 }

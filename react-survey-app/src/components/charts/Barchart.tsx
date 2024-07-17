@@ -44,10 +44,10 @@ export function Barchart() {
       try {
         // Fetch counts data from your API
         const result = await axios.get(
-          "https://flask-backsurvey-37288cfae4ae.herokuapp.com/counts?columns=colour"
+          "flask-test.us-east-1.elasticbeanstalk.com/counts?columns=colour"
         );
         const recent = await axios.get(
-          "https://flask-backsurvey-37288cfae4ae.herokuapp.com/last-entry/colour"
+          "flask-test.us-east-1.elasticbeanstalk.com/last-entry/colour"
         );
 
         setRecent(recent.data.colour);
@@ -89,6 +89,22 @@ export function Barchart() {
     }
   };
 
+  const colourIndex = (recent: string) => {
+    console.log(recent);
+    switch (recent) {
+      case "Blue":
+        return 0;
+      case "Green":
+        return 1;
+      case "Pink":
+        return 2;
+      case "Purple":
+        return 3;
+      case "Red":
+        return 4;
+    }
+  };
+
   return (
     <div>
       <CardHeader>
@@ -114,7 +130,7 @@ export function Barchart() {
             dataKey="amount"
             strokeWidth={2}
             radius={8}
-            activeIndex={2}
+            activeIndex={colourIndex(String(recentData))}
             activeBar={({ ...props }) => {
               return (
                 <Rectangle

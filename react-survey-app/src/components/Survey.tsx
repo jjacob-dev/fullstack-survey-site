@@ -7,7 +7,7 @@ const Survey: React.FC = () => {
 
   const [formData, setFormData] = useState({
     name: "",
-    age: 0,
+    age: "",
     language: "Python",
     colour: "",
     feedback: "",
@@ -47,9 +47,9 @@ const Survey: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      formData.age = Number(formData.age);
+      parseInt(formData.age);
       const response = await axios.post(
-        "https://flask-backsurvey-37288cfae4ae.herokuapp.com/submit-survey",
+        "flask-test.us-east-1.elasticbeanstalk.com/submit-survey",
         formData
       );
       alert(response.data.message);
@@ -98,7 +98,7 @@ const Survey: React.FC = () => {
               >
                 <option value="Python">Python</option>
                 <option value="HTML/CSS">HTML/CSS</option>
-                <option value="Javascript">Javascript</option>
+                <option value="JavaScript">JavaScript</option>
                 <option value="C++">C++</option>
               </select>
             </div>
